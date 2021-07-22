@@ -1,0 +1,18 @@
+DROP TABLE IF EXISTS users_list;
+
+CREATE SEQUENCE users_list_seq;
+
+CREATE TABLE IF NOT EXISTS users_list (
+  id int NOT NULL DEFAULT NEXTVAL ('users_list_seq'),
+  data text NOT NULL,
+  ref_number int NOT NULL DEFAULT '0',
+  image_blob BYTEA NOT NULL,
+  PRIMARY KEY (id)
+)   ;
+
+ALTER SEQUENCE users_list_seq RESTART WITH 5;
+
+
+/* SQLINES DEMO *** E=IFNULL(@OLD_SQL_MODE, '') */;
+/* SQLINES DEMO *** _KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/* SQLINES DEMO *** ER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

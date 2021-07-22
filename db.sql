@@ -1,19 +1,6 @@
 -- --------------------------------------------------------
--- Host:                         remotemysql.com
--- Server version:               8.0.13-4 - Percona Server (GPL), Release '4', Revision 'f0a32b8'
--- Server OS:                    debian-linux-gnu
--- HeidiSQL Version:             10.2.0.5599
--- --------------------------------------------------------
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
--- Dumping structure for table wEMtThYKl4.userList
-DROP TABLE IF EXISTS `userList`;
-CREATE TABLE IF NOT EXISTS `userList` (
+DROP TABLE IF EXISTS `users_list`;
+CREATE TABLE IF NOT EXISTS `users_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `data` text COLLATE utf8_unicode_ci NOT NULL,
   `ref_number` int(11) NOT NULL DEFAULT '0',

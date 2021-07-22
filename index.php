@@ -103,7 +103,9 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Text</th>
                                 <th scope="col">Integer</th>
-                                <th scope="col">BLOB</th>
+                                <?php if($dbType !== 'pgsql') : ?>
+                                    <th scope="col">BLOB</th>
+                                <?php endif; ?>
                                 <th scope="col" colspan="2">ACTION</th>
                             </thead>
                             <tbody>
@@ -112,7 +114,9 @@
                                     <th scope="row"><?php echo $_display->id ?></td>
                                     <td><?php echo $_display->data ?></td>
                                     <td><?php echo $_display->ref_number ?></td>
-                                    <td><img src="<?php echo 'data:image/jpeg;base64,'.base64_encode($_display->image_blob)?>" class="img-fluid"></td>
+                                    <?php if($dbType !== 'pgsql') : ?>
+                                        <td><img src="<?php echo 'data:image/jpeg;base64,'.base64_encode($_display->image_blob)?>" class="img-fluid"></td>
+                                    <?php endif; ?>
                                     <td><a href="index.php?edit=true&id=<?php echo $_display->id ?>" class="text-primary">EDIT</a></td>
                                     <td><a href="index.php?delete=true&id=<?php echo $_display->id ?>" class="text-danger" onclick="return confirm('Are you sure you want to delete - ID #<?php echo $_display->id ?>?')">DELETE</a></td>
                                 </tr>

@@ -1,13 +1,30 @@
 <?php
 
+require 'vendor/autoload.php';
+use Tracy\Debugger;
+Debugger::enable();
 
+# MySQL
 
-$dbType     = "";
-$hostname   = "";
-$username   = "";
+/*
+
+$dbType     = "mysql";
+$hostname   = "localhost";
+$username   = "root";
 $password   = "";
-$DB         = "";
-$port       = "";
+$DB         = "experimental_db";
+$port       = "3306";
+
+*/
+
+# PostgreSQL
+
+$dbType     = "pgsql";
+$hostname   = "rosie.db.elephantsql.com";
+$username   = "admcfoiw";
+$password   = "cEm9H-wCgjS2g0BUGmpxuE7LkQh7J4yk";
+$DB         = "admcfoiw";
+$port       = "5432";
 
 try {
     $pdo = new PDO($dbType.':host='.$hostname.';port='.$port.';dbname='.$DB, $username, $password);
@@ -64,7 +81,7 @@ function psByBindCol()
 {
     global $pdo;
     $data = [];
-    $string = "SELECT data, ref_number, image_blob FROM userList ORDER BY id DESC";
+    $string = "SELECT data, ref_number, image_blob FROM users_list ORDER BY id DESC";
     $statement = $pdo->prepare($string);
     $statement->execute();
 
@@ -89,7 +106,7 @@ function getDataBy($id)
 {
     global $pdo;
 
-    $string = "SELECT * FROM userList WHERE id = :id";
+    $string = "SELECT * FROM users_list WHERE id = :id";
     $query = $pdo->prepare($string);
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
@@ -102,12 +119,13 @@ function getDataBy($id)
 function insert($arr)
 {
     global $pdo;
-    $string = "INSERT INTO userList (data, ref_number, image_blob) VALUES (:data, :ref_number, :blob_img)";
+    $string = "INSERT INTO users_list (data, ref_number, image_blob) VALUES (:data, :ref_number, :blob_img)";
     $query = $pdo->prepare($string);
 
     $query->bindValue(':data', $arr['text'], PDO::PARAM_STR);
     $query->bindValue(':ref_number', $arr['ref'], PDO::PARAM_INT);
     $query->bindValue(':blob_img', $arr['bi'], PDO::PARAM_LOB);
+    // $query->bindValue(':blob_img', $arr['bi'], PDO::PARAM_STR);
 
     # The bindParam () function is used to pass variable not value
     # $query->bindParam(':data', arr['text'], PDO::PARAM_STR);
@@ -123,7 +141,7 @@ function insert($arr)
 function edit($arr)
 {
     global $pdo;
-    $string = "UPDATE userList SET data = :data, ref_number = :ref_number, image_blob = :blob_img WHERE id= :id";
+    $string = "UPDATE users_list SET data = :data, ref_number = :ref_number, image_blob = :blob_img WHERE id= :id";
     $query = $pdo->prepare($string);
 
     $query->bindValue(':data', $arr['text'], PDO::PARAM_STR);
@@ -139,7 +157,7 @@ function edit($arr)
 function delete($id)
 {
     global $pdo;
-    $string = "DELETE FROM userList WHERE id = ".$id;
+    $string = "DELETE FROM users_list WHERE id = ".$id;
     $pdo->exec($string);
 }
 
@@ -151,7 +169,7 @@ function delete($id)
 
 function display()
 {
-    $sql = "SELECT * FROM userList ORDER BY id DESC";
+    $sql = "SELECT * FROM users_list ORDER BY id DESC";
     return preparedStatement($sql);
 }
 
